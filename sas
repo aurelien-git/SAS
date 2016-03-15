@@ -9,7 +9,7 @@ echo "SAS need you to be root to run"
 
 the_user=`whoami`
 the_machine=`hostname`
-ip=`ifconfig -a | grep inet | grep 192`
+ip=`ip a | grep inet | grep 192`
 
 
 # Vefify and install the dependencies if needed
@@ -25,23 +25,23 @@ command_exists () {
 # auto-selection of the package manager
 # dnf - Fedora - fredora
 if command_exists dnf ; then
-    sudo dnf install lm_sensors nmap iftop moreutils networkmanager
+    sudo dnf install lm_sensors nmap iftop moreutils
 fi
 # yum - RedHat - old fredora
 if command_exists yum ; then
-    sudo yum install lm_sensors nmap iftop moreutils networkmanager
+    sudo yum install lm_sensors nmap iftop moreutils
 fi
 # apt - Debian - Trisquel
 if command_exists apt-get ; then
-    sudo apt-get install lm_sensors nmap iftop moreutils networkmanager
+    sudo apt-get install lm_sensors nmap iftop moreutils
 fi
 # pacman - Archlinux - Parabola
 if command_exists pacman ; then
-    sudo pacman -Sy lm_sensors nmap iftop moreutils networkmanager
+    sudo pacman -Sy lm_sensors nmap iftop moreutils
 fi
 # apt - Rooted smartphone
 if command_exists apt ; then
-    sudo apt install lm_sensors nmap iftop moreutils networkmanager
+    sudo apt install lm_sensors nmap iftop moreutils
 fi
 
 
@@ -50,11 +50,12 @@ sudo nmap -v -sS 192.168.0.0/24 | grep -v down
 
 
 # load scan of the bandwitch
-network=`nmcli dev`
-printf "\nHere is your network\n$network interface\n\n"
-echo "Enter the interface you want to works with:"
-read interface
-sudo iftop -i $interface -ts 20 # 20 number of second of analyse
+network=`ip addr show | awk '/inet.*brd/{print $NF; exit}'`
+printf "\nHere is your network interface\n$network\n\n"
+echo "Analysing now your traffic"
+#echo "Enter the interface you want to works with:"
+#read interface
+sudo iftop -i $network -ts 20 # 20 number of second of analyse
 
 # print hostname of the current machine
 printf "\nYour hostname is: \033[1;32m$the_machine\033[0m\n\n"
