@@ -39,13 +39,19 @@ fi
 if command_exists pacman ; then
     sudo pacman -Sy lm_sensors nmap iftop moreutils networkmanager
 fi
+# apt - Rooted smartphone
+if command_exists pacman ; then
+    sudo apt install lm_sensors nmap iftop moreutils networkmanager
+fi
+
 
 # load scan of the network
 sudo nmap -v -sS 192.168.0.0/24 | grep -v down
 
+
 # load scan of the bandwitch
-network=`ifconfig -a`
-printf "\nHere is your network\n$network\n\n"
+network=`nmcli dev`
+printf "\nHere is your network\n$network interface\n\n"
 echo "Enter the interface you want to works with:"
 read interface
 sudo iftop -i $interface -ts 20 # 20 number of second of analyse
@@ -55,11 +61,6 @@ printf "\nYour hostname is: \033[1;32m$the_machine\033[0m\n\n"
 
 # print IP of the machine
 printf "Your IP is: $ip\n\n"
-
-# print machines arround
-echo "Machines arround you:"
-nmcli dev
-printf "\n"
 
 # print neighborwood
 echo "There is different machine arround you:"
