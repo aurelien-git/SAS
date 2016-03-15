@@ -1,4 +1,13 @@
 Scan Analyser Set
+GPLV3 - aurelien@hackers.camp
 
 This software is made to analyse a network and your machine level of different sensors.
 
+What this software make:
+- Install needed software for your prefered distro
+- Scan the network arround you
+- Give you information: hostname / user / ip
+- Let you choice between the interface you want to works with
+- Give you the list of machine connected arround you
+- Give you information on your sensors
+- Scan the machine of your choice
