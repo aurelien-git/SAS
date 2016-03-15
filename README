@@ -3,6 +3,14 @@ GPLV3 - aurelien@hackers.camp
 
 This software is made to analyse a network and your machine level of different sensors.
 
+It is made to works on 
+
+Archlinux / Parabola and derivative
+RedHat / Fedora / Freedora and derivative
+Debian / Ubuntu / Trisquel and derivative
+Rooted Android / Cyanogen and Replicant smartphone
+
+
 What this software make:
 - Install needed software for your prefered distro
 - Scan the network arround you
