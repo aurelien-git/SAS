@@ -40,7 +40,7 @@ if command_exists pacman ; then
     sudo pacman -Sy lm_sensors nmap iftop moreutils networkmanager
 fi
 # apt - Rooted smartphone
-if command_exists pacman ; then
+if command_exists apt ; then
     sudo apt install lm_sensors nmap iftop moreutils networkmanager
 fi
 
