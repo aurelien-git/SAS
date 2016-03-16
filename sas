@@ -2,10 +2,10 @@
 # SAS
 # Scan Analyser Set
 
-sas()
+sas() # make the software run as a function
 {
 
-tput clear
+tput clear # clear the terminal
 
 printf "\n\033[1;32mWelcome to Scan Analyser Set\033[0m\n"
 printf "\n\033[1;32mSAS need you to use the sudo command to run\033[0m\n"
@@ -16,7 +16,17 @@ the_machine=`hostname`
 ip=`ip a | grep inet | grep 192`
 
 # create directory SAS in the user directory
-mkdir /home/$the_user/SAS/
+# control that the directory not already exist
+directory_exists () {
+    type "$1" &> /dev/null ;
+}
+
+if directory_exists /home/$the_user/SAS/ ; then
+    mkdir /home/$the_user/SAS/ # create the SAS directory
+else
+    truncate -s 0 /home/$the_user/SAS/sas-report-* # clear all old log file of SAS
+fi
+
 
 printf "\n\033[1;32mSAS will write all scan analysis scheme in your /home/$the_user/SAS/ directory\033[0m\n\n"
 
