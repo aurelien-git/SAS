@@ -19,3 +19,10 @@ What this software make:
 - Give you the list of machine connected arround you
 - Give you information on your sensors
 - Scan the machine of your choice
+
+How to use SAS:
+
+- Verify first that the script is executable, chmod +x if needed
+- Open a terminal as simple user type: . sas
+- Now SAS is installed as a simple funtion so you just have to type
+  as simple user in a terminal: sas

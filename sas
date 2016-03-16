@@ -2,6 +2,9 @@
 # SAS
 # Scan Analyser Set
 
+sas()
+{
+
 tput clear
 
 echo "Welcome to Scan Analyser Set"
@@ -90,3 +93,4 @@ printf "\n$scan\n\n"
 
 # exit $? to exit the program on last command
 # exit 0 to exit the program
+}
