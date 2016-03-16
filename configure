@@ -25,9 +25,8 @@ command_exists () {
 # dnf - Fedora - fredora
 if command_exists dnf ; then
     sudo dnf install lm_sensors nmap iftop moreutils
-fi
-# yum - RedHat - old fredora
-if command_exists yum ; then
+else
+    # yum - RedHat - old fredora
     sudo yum install lm_sensors nmap iftop moreutils
 fi
 # apt - Debian - Trisquel
