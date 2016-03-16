@@ -43,6 +43,10 @@ sensors | grep Core | grep 0: | grep °C | tee -a /home/$the_user/SAS/sas-report
 
 printf "\n"
 
+printf "\n\033[1;32mHere is the wifi network arround your $the_user\033[0m\n\n"
+# catching wifi network arround
+sudo iwlist wls2 s | grep 'ESSID\|IEEE' | tee -a /home/$the_user/SAS/sas-report-wifi-network-arround-$the_user
+
 # scan part
 printf "\n\033[1;32mSAS load now the scan of your network\033[0m\n\n"
 echo "That operation could get more than 5 minutes please wait $the_user"
