@@ -14,38 +14,7 @@ the_user=`whoami`
 the_machine=`hostname`
 ip=`ip a | grep inet | grep 192`
 
-
-# Vefify and install the dependencies if needed
-printf "\nThe software will now verify that you have the software installed\n"
-printf "on your operating system $the_user\n"  
-
-# load installation of the dependencies
-# verification of the package manager
-command_exists () {
-    type "$1" &> /dev/null ;
-}
-
-# auto-selection of the package manager
-# dnf - Fedora - fredora
-if command_exists dnf ; then
-    sudo dnf install lm_sensors nmap iftop moreutils
-fi
-# yum - RedHat - old fredora
-if command_exists yum ; then
-    sudo yum install lm_sensors nmap iftop moreutils
-fi
-# apt - Debian - Trisquel
-if command_exists apt-get ; then
-    sudo apt-get install lm_sensors nmap iftop moreutils
-fi
-# pacman - Archlinux - Parabola
-if command_exists pacman ; then
-    sudo pacman -Sy lm_sensors nmap iftop moreutils
-fi
-# apt - Rooted smartphone
-if command_exists apt ; then
-    sudo apt install lm_sensors nmap iftop moreutils
-fi
+echo "SAS load now the scan of your network"
 
 
 # load scan of the network
@@ -88,9 +57,4 @@ read name
 scan=`sudo nmap -v -O --osscan-guess $name`
 printf "\n$scan\n\n"
 
-# End of program
-#exit 0
-
-# exit $? to exit the program on last command
-# exit 0 to exit the program
 }
