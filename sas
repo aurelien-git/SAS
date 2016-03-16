@@ -51,7 +51,7 @@ echo "That operation could get more than 5 minutes please wait $the_user"
 # load scan of the network
 sudo nmap -p- -Pn -A 192.168.0.0/24 | tee -a /home/$the_user/SAS/sas-report-network-scan
 
-# load scan of the bandwitch
+# searching name of the active interface
 network=`ip addr show | awk '/inet.*brd/{print $NF; exit}'`
 printf "\n\033[1;32mHere is your network interface: $network\033[0m\n\n"
 
@@ -66,16 +66,14 @@ printf "\n\033[1;32mYour hostname is: $the_machine\033[0m\n\n" | tee -a /home/$t
 # print IP of the machine
 printf "\n\033[1;32mYour IP is: $ip\033[0m\n\n" | tee -a /home/$the_user/SAS/sas-report-$the_user-IP
 
+# scan active connection
+printf "\n\033[1;32mscanning active Internet connections from $the_user\033[0m\n\n"
+sudo netstat -natpe | tee -a /home/$the_user/SAS/sas-report-$the_user-active-Internet-connections
+
 # print neighborwood
 printf "\n\033[1;32mThere is different machine arround you:\033[0m\n"
 ip neighbor | tee -a /home/$the_user/SAS/sas-report-$the_user-neighborwood
 printf "\n"
-
-
-# scan active connection
-
-printf "\n\033[1;32mscanning active Internet connections from $the_user\033[0m\n\n"
-sudo netstat -natpe | tee -a /home/$the_user/SAS/sas-report-$the_user-active-Internet-connections
 
 # scan a server
 printf "\n\033[1;32mgive me the name or ip of a machine you want to scan:\033[0m\n"
