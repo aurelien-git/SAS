@@ -19,6 +19,7 @@ What this software make:
 - Give you the list of machine connected arround you
 - Give you information on your sensors
 - Scan the machine of your choice
+- Create a log file of all scan in your /home/<user>/SAS directory
 
 How to use SAS:
 - Open a terminal as simple user type: . configure

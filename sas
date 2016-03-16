@@ -7,54 +7,70 @@ sas()
 
 tput clear
 
-echo "Welcome to Scan Analyser Set"
-echo "SAS need you to be root to run"
+printf "\n\033[1;32mWelcome to Scan Analyser Set\033[0m\n"
+printf "\n\033[1;32mSAS need you to use the sudo command to run\033[0m\n"
+
 
 the_user=`whoami`
 the_machine=`hostname`
 ip=`ip a | grep inet | grep 192`
 
-echo "SAS load now the scan of your network"
+# create directory SAS in the user directory
+mkdir /home/$the_user/SAS/
+
+printf "\n\033[1;32mSAS will write all scan analysis scheme in your /home/$the_user/SAS/ directory\033[0m\n\n"
+
+
+# Print sensors information
+printf "\n"
+echo "Here is the level of your RAM use and temperature of your system $the_user"
+
+
+printf "\n\t" ; echo "RAM ---total-------used---------free------shared--buff/cache---available----"
+free -mt | grep Mem | tee -a /home/$the_user/SAS/sas-report-memory
+printf "\t" ; echo "Temperature  ---------------------------------------------------------------"
+sensors | grep Core | grep 0: | grep °C | tee -a /home/$the_user/SAS/sas-report-temperature
+
+printf "\n"
+
+# scan part
+printf "\n\033[1;32mSAS load now the scan of your network\033[0m\n\n"
+echo "That operation could get more than 5 minutes please wait $the_user"
 
 
 # load scan of the network
-sudo nmap -v -sS 192.168.0.0/24 | grep -v down
-
+sudo nmap -p- -Pn -A 192.168.0.0/24 | tee -a /home/$the_user/SAS/sas-report-network-scan
 
 # load scan of the bandwitch
 network=`ip addr show | awk '/inet.*brd/{print $NF; exit}'`
-printf "\nHere is your network interface\n$network\n\n"
-echo "Analysing now your traffic"
-#echo "Enter the interface you want to works with:"
-#read interface
-sudo iftop -i $network -ts 20 # 20 number of second of analyse
+printf "\n\033[1;32mHere is your network interface: $network\033[0m\n\n"
+
+# load traffic analysis
+echo "Analysing now your traffic that will take 20 seconds"
+sudo iftop -i $network -ts 20 | tee -a /home/$the_user/SAS/sas-report-traffic-analysis
+# 20 number of second of analyse
 
 # print hostname of the current machine
-printf "\nYour hostname is: \033[1;32m$the_machine\033[0m\n\n"
+printf "\n\033[1;32mYour hostname is: $the_machine\033[0m\n\n" | tee -a /home/$the_user/SAS/sas-report-$the_user-hostname
 
 # print IP of the machine
-printf "Your IP is: $ip\n\n"
+printf "\n\033[1;32mYour IP is: $ip\033[0m\n\n" | tee -a /home/$the_user/SAS/sas-report-$the_user-IP
 
 # print neighborwood
-echo "There is different machine arround you:"
-ip neighbor
+printf "\n\033[1;32mThere is different machine arround you:\033[0m\n"
+ip neighbor | tee -a /home/$the_user/SAS/sas-report-$the_user-neighborwood
 printf "\n"
 
-# Print sensors information
-printf "\nHere is the level of your RAM use and temperature of your system \033[1;32m$the_user\033[0m\n\n"
 
+# scan active connection
 
-printf "\t" ; echo "RAM ---total-------used---------free------shared--buff/cache---available----"
-free -mt | grep Mem | tee -a memory.txt
-printf "\t" ; echo "Temperature  ---------------------------------------------------------------"
-sensors | grep Core | grep 0: | grep °C | tee -a temp.txt
-
-printf "\n\n"
+printf "\n\033[1;32mscanning active Internet connections from $the_user\033[0m\n\n"
+sudo netstat -natpe | tee -a /home/$the_user/SAS/sas-report-$the_user-active-Internet-connections
 
 # scan a server
-echo "give me the name or ip of a machine you want to scan:"
+printf "\n\033[1;32mgive me the name or ip of a machine you want to scan:\033[0m\n"
 read name
 scan=`sudo nmap -v -O --osscan-guess $name`
-printf "\n$scan\n\n"
+printf "\n$scan\n\n" | tee -a /home/$the_user/SAS/sas-report-scan-on-$name
 
 }
