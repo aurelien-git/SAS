@@ -21,8 +21,10 @@ What this software make:
 - Scan the machine of your choice
 
 How to use SAS:
-
 - Verify first that the script is executable, chmod +x if needed
 - Open a terminal as simple user type: . sas
 - Now SAS is installed as a simple funtion so you just have to type
   as simple user in a terminal: sas
+
+How to remove SAS from your function:
+- Open a terminal and type: unset sas
