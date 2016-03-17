@@ -22,7 +22,7 @@ while true; do
 done
 
 # Vefify and install the dependencies if needed
-printf "\nThe software will now verify that you have the software installed\n"
+printf "\nThe software will now verify that you have different dependencies installed\nand will install them if needed!\n"
 printf "on your operating system $the_user\n"  
 
 # load installation of the dependencies
@@ -65,5 +65,7 @@ sleep 5
 
 
 . sas
+
+alias sas="sas"
 
 sas

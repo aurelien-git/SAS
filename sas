@@ -23,9 +23,9 @@ directory_exists () {
 }
 
 if directory_exists /home/$the_user/SAS/ ; then
-    mkdir /home/$the_user/SAS/ # create the SAS directory
-else
     truncate -s 0 /home/$the_user/SAS/sas-report-* # clear all old log file of SAS
+else
+    mkdir /home/$the_user/SAS/ # create the SAS directory
 fi
 
 
