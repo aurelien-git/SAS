@@ -15,18 +15,7 @@ the_user=`whoami`
 the_machine=`hostname`
 ip=`ip a | grep inet | grep 192`
 
-
-# create directory SAS in the user directory
-# control that the directory not already exist
-directory_exists () {
-    type "$1" &> /dev/null ;
-}
-
-if directory_exists /home/$the_user/SAS/ ; then
-    truncate -s 0 /home/$the_user/SAS/sas-report-* # clear all old log file of SAS
-else
-    mkdir /home/$the_user/SAS/ # create the SAS directory
-fi
+truncate -s 0 /home/$the_user/SAS/sas-report-* # clear all old log file of SAS
 
 
 printf "\n\033[1;32mSAS will write all scan analysis scheme in your /home/$the_user/SAS/ directory\033[0m\n\n"
@@ -54,7 +43,7 @@ echo "That operation could get more than 5 minutes please wait $the_user"
 
 
 # load scan of the network
-sudo nmap -p- -Pn -A 192.168.0.0/24 | grep -v Starting | tee -a /home/$the_user/SAS/sas-report-network-scan
+sudo nmap -Pn -A 192.168.0.0/24 | grep -v Starting | tee -a /home/$the_user/SAS/sas-report-network-scan
 
 # searching name of the active interface
 network=`ip addr show | awk '/inet.*brd/{print $NF; exit}'`
@@ -81,9 +70,9 @@ ip neighbor | tee -a /home/$the_user/SAS/sas-report-$the_user-neighborwood
 printf "\n"
 
 # scan a server
-printf "\n\033[1;32mgive me the name or ip of a machine you want to scan:\033[0m\n"
+printf "\n\033[1;32mgive me the name or ip of a machine you want to scan deeper:\033[0m\n"
 read name
-scan=`sudo nmap -v -Pn -O --osscan-guess $name | grep -v Starting`
+scan=`sudo nmap -p- -Pn -v -O --osscan-guess $name`
 printf "\n$scan\n\n" | tee -a /home/$the_user/SAS/sas-report-scan-on-$name
 
 }

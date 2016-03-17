@@ -22,8 +22,7 @@ while true; do
 done
 
 # Vefify and install the dependencies if needed
-printf "\nThe software will now verify that you have the software installed\n"
-printf "on your operating system $the_user\n"  
+printf "\nThe software will now install the needed dependencies on\nyour operating system $the_user\n\n"  
 
 # load installation of the dependencies
 # verification of the package manager
@@ -52,14 +51,15 @@ if command_exists apt ; then
     sudo apt install lm_sensors nmap iftop moreutils
 fi
 
-cp sas ~/.
+mkdir /home/$the_user/SAS/
 
-chmod +x ~/sas
+cp sas ~/SAS/.
 
-cd
+chmod u+x ~/SAS/sas
 
+cd ~/SAS/
 
-printf "If all dependencies installed correctly, SAS will be able to\nrun correctly on your operating system $the_user\n"
+printf "If all dependencies installed correctly, SAS will be able to run\ncorrectly on your operating system $the_user\n"
 
 sleep 5
 
