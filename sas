@@ -15,6 +15,7 @@ the_user=`whoami`
 the_machine=`hostname`
 ip=`ip a | grep inet | grep 192`
 
+
 # create directory SAS in the user directory
 # control that the directory not already exist
 directory_exists () {
@@ -53,7 +54,7 @@ echo "That operation could get more than 5 minutes please wait $the_user"
 
 
 # load scan of the network
-sudo nmap -p- -Pn -A 192.168.0.0/24 | tee -a /home/$the_user/SAS/sas-report-network-scan
+sudo nmap -p- -Pn -A 192.168.0.0/24 | grep -v Starting | tee -a /home/$the_user/SAS/sas-report-network-scan
 
 # searching name of the active interface
 network=`ip addr show | awk '/inet.*brd/{print $NF; exit}'`
@@ -82,7 +83,7 @@ printf "\n"
 # scan a server
 printf "\n\033[1;32mgive me the name or ip of a machine you want to scan:\033[0m\n"
 read name
-scan=`sudo nmap -v -O --osscan-guess $name`
+scan=`sudo nmap -v -Pn -O --osscan-guess $name | grep -v Starting`
 printf "\n$scan\n\n" | tee -a /home/$the_user/SAS/sas-report-scan-on-$name
 
 }

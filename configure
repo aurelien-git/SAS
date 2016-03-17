@@ -11,6 +11,16 @@ echo "You need root privileges to runit "
 
 the_user=`whoami`
 
+# request the user approbation
+while true; do
+    read -p "Do you wish to install SAS $the_user Y/n?" yn
+    case $yn in
+	[Yy]* ) break;;
+	[Nn]* ) exit;;
+	* ) echo "Please answer Yes or no.";;
+    esac
+done
+
 # Vefify and install the dependencies if needed
 printf "\nThe software will now verify that you have the software installed\n"
 printf "on your operating system $the_user\n"  
