@@ -2,6 +2,8 @@
 # SAS
 # Scan Analyser Set
 # Configuration file
+# License: GPL v3
+# Author: Aurelien DESBRIERES - aurelien@hackers.camp
 
 tput clear
 
