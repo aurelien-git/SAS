@@ -1,6 +1,8 @@
 #!/bin/bash
 # SAS
 # Scan Analyser Set
+# License: GPL v3
+# Author: Aurelien DESBRIERES - aurelien@hackers.camp
 
 sas() # make the software run as a function
 {
